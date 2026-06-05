@@ -12,29 +12,32 @@ GitHub Pages resolves URLs by repo name:
 | `bridgebss.github.io`  | `https://bridgebss.github.io/` (root)  |
 | any other repo `foo`   | `https://bridgebss.github.io/foo/`     |
 
-Deep-link targets like `/splash` must live at the **root domain**, so they must be served from a
-repo named exactly `bridgebss.github.io`.
+App Link / Universal Link URLs resolve against the **root domain**, so the verification files
+must be served from a repo named exactly `bridgebss.github.io`.
 
-## Two-repo layout
+## Layout
 
-| Path on `bridgebss.github.io` | Served by repo |
-| ----------------------------- | -------------- |
-| `/`, `/splash`                | `bridgebss.github.io` (this repo) |
-| `/.well-known/*`              | [`Bridgebss/.well-known`](https://github.com/Bridgebss/.well-known) |
+Everything is served from this single repo:
 
-The `.well-known` repo is literally named `.well-known`, so its root files are served at
-`https://bridgebss.github.io/.well-known/...` — exactly where Android/iOS look. This repo owns
-the web pages; that repo owns the verification files.
+| Path on `bridgebss.github.io`             | File                          |
+| ----------------------------------------- | ----------------------------- |
+| `/`                                       | `index.html` (test dashboard) |
+| `/.well-known/assetlinks.json`            | Android App Links             |
+| `/.well-known/apple-app-site-association` | iOS Universal Links           |
+
+`.nojekyll` is required so GitHub Pages publishes the `.well-known` dotfolder (Jekyll hides
+dotfolders by default).
 
 ## Contents
 
 ```
-index.html    Test dashboard (link buttons + live verification-file checks)
-splash.html   Deep-link landing page  -> /splash
-.nojekyll     Skip Jekyll; serve files as-is
+index.html                              Test dashboard + live verification-file checks
+.nojekyll                               Skip Jekyll; publishes the .well-known dotfolder
+.well-known/assetlinks.json             Android App Links verification
+.well-known/apple-app-site-association  iOS Universal Links verification (no .json extension)
 ```
 
-## Verification requirements (in the .well-known repo)
+## Verification requirements
 
 - **Android** `assetlinks.json` — `target.namespace` must be the literal `"android_app"`
   (not a product name).
@@ -46,7 +49,7 @@ splash.html   Deep-link landing page  -> /splash
 ## Test
 
 - Open `https://bridgebss.github.io/` and confirm both verification files show **200 · json**.
-- Android: `adb shell am start -a android.intent.action.VIEW -d "https://bridgebss.github.io/splash" com.bfr.sp`
-- iOS: paste `https://bridgebss.github.io/splash` into Notes/Messages on a device and tap it.
+- Android: `adb shell am start -a android.intent.action.VIEW -d "https://bridgebss.github.io/" com.bfr.sp`
+- iOS: paste `https://bridgebss.github.io/` into Notes/Messages on a device and tap it.
 - Google verifier: `https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https://bridgebss.github.io&relation=delegate_permission/common.handle_all_urls`
 - Apple validator: `https://app-site-association.cdn-apple.com/a/v1/bridgebss.github.io`

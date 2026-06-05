@@ -75,13 +75,9 @@
 
     <div class="card">
       <h2>Test the links</h2>
-      <p class="note" style="margin-top:0">On a real device with the app installed, tapping these should open the app instead of the browser. On desktop (or without the app), they open the splash page below.</p>
-      <a class="tap" href="/splash">
-        <span>Open <code>/splash</code><small>Bare deep link target</small></span>
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a class="tap" href="/splash?id=12345&amp;src=tester">
-        <span>Open <code>/splash?id=12345</code><small>Deep link carrying parameters</small></span>
+      <p class="note" style="margin-top:0">On a real device with the app installed, tapping this should open the app instead of the browser. The app is configured to handle <strong>every</strong> path on this domain.</p>
+      <a class="tap" href="/?id=12345&amp;src=tester">
+        <span>Open <code>/?id=12345</code><small>Deep link carrying parameters</small></span>
         <span class="arrow">&rarr;</span>
       </a>
     </div>
@@ -102,7 +98,7 @@
     <div class="card">
       <h2>Android · assetlinks.json</h2>
       <div class="row"><span class="k">Package</span><span class="v">com.bfr.sp</span></div>
-      <div class="row"><span class="k">Namespace</span><span class="v">brushfire</span></div>
+      <div class="row"><span class="k">Namespace</span><span class="v">android_app</span></div>
       <pre id="android-json">loading…</pre>
     </div>
 
