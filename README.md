@@ -22,6 +22,7 @@ Everything is served from this single repo:
 | Path on `bridgebss.github.io`             | File                          |
 | ----------------------------------------- | ----------------------------- |
 | `/`                                       | `index.html` (test dashboard) |
+| `/splash`                                 | `splash.html` (link landing)  |
 | `/.well-known/assetlinks.json`            | Android App Links             |
 | `/.well-known/apple-app-site-association` | iOS Universal Links           |
 
@@ -32,6 +33,7 @@ dotfolders by default).
 
 ```
 index.html                              Test dashboard + live verification-file checks
+splash.html                             Deep-link landing page  ->  /splash
 .nojekyll                               Skip Jekyll; publishes the .well-known dotfolder
 .well-known/assetlinks.json             Android App Links verification
 .well-known/apple-app-site-association  iOS Universal Links verification (no .json extension)
@@ -49,7 +51,7 @@ index.html                              Test dashboard + live verification-file 
 ## Test
 
 - Open `https://bridgebss.github.io/` and confirm both verification files show **200 · json**.
-- Android: `adb shell am start -a android.intent.action.VIEW -d "https://bridgebss.github.io/" com.bfr.sp`
-- iOS: paste `https://bridgebss.github.io/` into Notes/Messages on a device and tap it.
+- Android: `adb shell am start -a android.intent.action.VIEW -d "https://bridgebss.github.io/splash" com.bfr.sp`
+- iOS: paste `https://bridgebss.github.io/splash` into Notes/Messages on a device and tap it.
 - Google verifier: `https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https://bridgebss.github.io&relation=delegate_permission/common.handle_all_urls`
 - Apple validator: `https://app-site-association.cdn-apple.com/a/v1/bridgebss.github.io`

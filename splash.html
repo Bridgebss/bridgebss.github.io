@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Splash · Deep Link Landing</title>
+  <style>
+    :root {
+      --bg: #0b1020; --card: #151b2e; --line: #2a3350; --text: #e7ecf5;
+      --muted: #9aa6c4; --brand: #5b8cff; --ok: #34d399;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(900px 500px at 50% -10%, #1a2545 0%, var(--bg) 55%); color: var(--text);
+    }
+    .card {
+      width: 100%; max-width: 540px; background: var(--card); border: 1px solid var(--line);
+      border-radius: 18px; padding: 28px; text-align: center;
+    }
+    .check {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 18px;
+      display: flex; align-items: center; justify-content: center; font-size: 32px;
+      background: rgba(52,211,153,.15); color: var(--ok);
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    p.sub { color: var(--muted); margin: 0 0 22px; }
+    .box { text-align: left; background: #0f1730; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+    .box .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+    .box .v { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; word-break: break-all; margin-top: 4px; }
+    .params { margin: 0; padding: 0; list-style: none; }
+    .params li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .params li:last-child { border-bottom: 0; }
+    .params .pk { color: var(--muted); font-family: ui-monospace, Menlo, monospace; }
+    .params .pv { font-family: ui-monospace, Menlo, monospace; word-break: break-all; }
+    .empty { color: var(--muted); font-size: 13px; }
+    .btns { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+    a.btn {
+      flex: 1; min-width: 140px; text-decoration: none; text-align: center; padding: 12px 16px; border-radius: 12px;
+      font-weight: 600; border: 1px solid var(--line); color: var(--text); background: #0f1730;
+    }
+    a.btn.primary { background: var(--brand); border-color: var(--brand); color: #061025; }
+    .note { color: var(--muted); font-size: 12px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">&#10003;</div>
+    <h1>You reached the splash page</h1>
+    <p class="sub">If you tapped a link and the <strong>browser</strong> opened this page, the app did not intercept the link. If the <strong>app</strong> opened, deep linking works.</p>
+
+    <div class="box">
+      <div class="k">Full URL</div>
+      <div class="v" id="full-url">&mdash;</div>
+    </div>
+
+    <div class="box">
+      <div class="k">Query parameters</div>
+      <ul class="params" id="params"></ul>
+    </div>
+
+    <div class="btns">
+      <a class="btn" href="/">&larr; Back to tester</a>
+      <a class="btn primary" id="open-app" href="#">Try opening the app</a>
+    </div>
+    <p class="note">The "open the app" button uses a custom URL scheme fallback. Configure the scheme below to match your app.</p>
+  </div>
+
+  <script>
+    // Custom-scheme fallback for manual testing (App Links/Universal Links are the primary path).
+    var CUSTOM_SCHEME = "brushfire://"; // TODO: set to your app's URL scheme
+
+    document.getElementById('full-url').textContent = location.href;
+
+    var list = document.getElementById('params');
+    var params = new URLSearchParams(location.search);
+    if ([...params].length === 0) {
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="empty">none</span>';
+      list.appendChild(li);
+    } else {
+      params.forEach(function (value, key) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="pk">' + key + '</span><span class="pv">' + value + '</span>';
+        list.appendChild(li);
+      });
+    }
+
+    document.getElementById('open-app').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.href = CUSTOM_SCHEME + location.pathname.replace(/^\//, '') + location.search;
+    });
+  </script>
+</body>
+</html>
