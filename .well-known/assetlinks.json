@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bfr.sp",
+      "sha256_cert_fingerprints": [
+        "B0:2E:F0:42:9D:D1:00:04:97:94:54:F3:F3:32:F6:5D:C8:EA:84:9B:D7:72:F6:27:39:14:4C:AF:CD:FC:72:C1"
+      ]
+    }
+  }
+]
