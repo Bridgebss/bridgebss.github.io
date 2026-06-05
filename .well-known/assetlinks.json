@@ -5,7 +5,9 @@
       "namespace": "android_app",
       "package_name": "com.bfr.sp",
       "sha256_cert_fingerprints": [
-        "B0:2E:F0:42:9D:D1:00:04:97:94:54:F3:F3:32:F6:5D:C8:EA:84:9B:D7:72:F6:27:39:14:4C:AF:CD:FC:72:C1"
+        "4B:87:5F:5E:C2:95:27:45:11:76:12:BA:C9:4C:6D:E3:9C:F1:48:BD:E2:AC:72:FA:58:78:33:76:95:1D:29:E6",
+        "B0:2E:F0:42:9D:D1:00:04:97:94:54:F3:F3:32:F6:5D:C8:EA:84:9B:D7:72:F6:27:39:14:4C:AF:CD:FC:72:C1",
+        "19:34:A7:2E:32:19:D2:E6:AD:E2:DD:39:41:8B:F8:6C:C0:A4:CC:CF:01:77:0C:18:EC:FD:69:33:58:DF:2C:C8"
       ]
     }
   }
